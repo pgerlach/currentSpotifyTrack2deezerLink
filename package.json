@@ -1,0 +1,28 @@
+{
+  "name": "currentspotifytrack2deezerlink",
+  "version": "1.0.0",
+  "description": "On mac osx, gets the current track playing in Spotify, and finds its Deezer url",
+  "main": "index.js",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/pgerlach/currentSpotifyTrack2deezerLink.git"
+  },
+  "dependencies": {
+    "applescript": "^1.0.0",
+    "clipboardy": "^1.1.4",
+    "es6-promisify": "^5.0.0",
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "spotify",
+    "deezer",
+    "osx"
+  ],
+  "author": "Pierre-Rudolf Gerlach <pgerlach@gmail.com>",
+  "license": "MIT"
+}
