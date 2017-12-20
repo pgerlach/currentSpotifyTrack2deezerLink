@@ -11,6 +11,7 @@
     "applescript": "^1.0.0",
     "clipboardy": "^1.1.4",
     "es6-promisify": "^5.0.0",
+    "lodash": "^4.17.4",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5"
   },

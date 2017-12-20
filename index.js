@@ -4,6 +4,7 @@ const applescript = require('applescript');
 const promisify = require('es6-promisify');
 const rp = require('request-promise-native');
 const clipboardy = require('clipboardy');
+const _ = require('lodash');
 
 const appleScriptExecString = promisify(applescript.execString, applescript);
 
@@ -28,7 +29,7 @@ async function getCurrentTrackInfoFromSpotify() {
 
   for (elt of scriptResult) {
     if (regexp.test(elt)) {
-      [_, key, value] = elt.match(regexp);
+      [dummy, key, value] = elt.match(regexp);
       res[key] = value;
     } else {
       console.log("weird: no match to regexp", elt);
@@ -39,8 +40,7 @@ async function getCurrentTrackInfoFromSpotify() {
 
 // https://developers.deezer.com/api/search
 async function getDeezerTrackUrl(trackInfo) {
-  console.log("getDeezerTrackUrl", trackInfo);
-  const queryString = `track:"${trackInfo.track}" artist:"${trackInfo.artist}" album:"${trackInfo.album}"`;
+  const queryString = (Object.entries(trackInfo).map(([k, v]) => `${k}:"${v}"`).join(" "));;
   const uri = `https://api.deezer.com/search?q=${encodeURIComponent(queryString)}`;
   console.log("uri:", uri);
   const deezerResponse = await rp({
@@ -48,6 +48,14 @@ async function getDeezerTrackUrl(trackInfo) {
     json: true
   });
   if (deezerResponse && deezerResponse.data) {
+    if (deezerResponse.data.length === 0) {
+      if (trackInfo.hasOwnProperty("album")) {
+        console.log("no response with all data, trying without specifying 'album'");
+        return getDeezerTrackUrl(_.omit(trackInfo, ["album"]));
+      } else {
+        return console.log("no results");
+      }
+    }
     for (track of deezerResponse.data) {
       console.log(`${track.link} ("${track.title}", by "${track.artist.name}", on album "${track.album.title}")`);
     }
