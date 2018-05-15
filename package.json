@@ -9,10 +9,10 @@
   },
   "dependencies": {
     "applescript": "^1.0.0",
-    "clipboardy": "^1.1.4",
+    "clipboardy": "^1.2.3",
     "es6-promisify": "^5.0.0",
-    "lodash": "^4.17.4",
-    "request": "^2.83.0",
+    "lodash": "^4.17.10",
+    "request": "^2.85.0",
     "request-promise-native": "^1.0.5"
   },
   "devDependencies": {},
